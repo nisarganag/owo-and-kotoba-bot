@@ -27,26 +27,26 @@ def Check(x1,y1,x2,y2):
     
 
 def lootBoxError():
-    str=Check(515, 885, 792, 900)
+    str=Check(515, 876, 998, 906)
     if "don't have any lootboxes" in str:
         return True
     else:
         return False
 def prayError():
-    str=Check(515, 885, 792, 900)
+    str=Check(515, 876, 998, 906)
     if "Slow down and try the command again in" in str:
         return True
     else:
         return False
-def wcError():
-    str=Check(515, 885, 792, 900)
+def weaponsCrateError():
+    str=Check(515, 876, 998, 906)
     if "don't have any weapon crates" in str:
         return True
     else:
         return False
 
 num=int(input("How many times? "))
-commands=["owo lb","owo b","owo pray","owo inv","owo h","owo wc","owo z","owo cash","owo q","owo cl","owo pika","owo army","owo w"]
+commands=["owo lb","owo h","owo b","owo pray","owo inv","owo h","owo b","owo wc","owo h","owo b","owo z","owo cash","owo q","owo cl","owo b","owo pika","owo army","owo w","owo h"]
 
 test_queue = Deque([-1]*4,maxlen=4) 
     
@@ -66,6 +66,15 @@ def randCommand():
             if x == test_queue[j]:
                 time.sleep(10)
         test_queue.appendleft(x)
+        if(commands[x]=="owo lb"):
+            if(lootBoxError()):
+                continue
+        if(commands[x]=="owo pray"):
+            if(prayError()):
+                continue
+        if(commands[x]=="owo wc"):
+            if(weaponsCrateError()):
+                continue
         pyautogui.write(commands[x])
         pyautogui.press('enter')
         time.sleep(randTime())
