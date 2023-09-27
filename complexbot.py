@@ -9,7 +9,18 @@ import pytesseract
 from PIL import ImageGrab
 
 pytesseract.pytesseract.tesseract_cmd = 'C:/Program Files/Tesseract-OCR/tesseract.exe'
-  
+pair=[("owo h",1),
+    ("owo b",1),
+    ("owo pray",1),
+    ("owo inv",1),
+    ("owo wc",1),
+    ("owo z",1),
+    ("owo cash",1),
+    ("owo q",1),
+    ("owo cl",1),
+    ("owo pika",1),
+    ("owo lb",1),
+    ("owo w",1)]
 def Check(x1,y1,x2,y2):
     while True:
         cap = ImageGrab.grab(bbox=(x1, y1, x2, y2))
@@ -61,22 +72,34 @@ pyautogui.click(523, 964)
 time.sleep(2)
 def randCommand():
     for i in range(1, num+1):
-        x = random.randrange(13)
+        x = random.randrange(19)
         for j in range(4):
             if x == test_queue[j]:
                 time.sleep(10)
         test_queue.appendleft(x)
-        if(commands[x]=="owo lb"):
-            if(lootBoxError()):
-                continue
-        if(commands[x]=="owo pray"):
-            if(prayError()):
-                continue
-        if(commands[x]=="owo wc"):
-            if(weaponsCrateError()):
-                continue
+        if(commands[x]=="owo lb" and pair[10][1]==0):
+            continue
+            
+        if(commands[x]=="owo pray" and pair[2][1]==0):
+            continue
+            
+        if(commands[x]=="owo wc" and pair[4][1]==0):
+            continue
+        
         pyautogui.write(commands[x])
         pyautogui.press('enter')
+        if(lootBoxError()):
+                global pair
+                pair[10]=("owo lb",0)
+                continue
+        if(prayError()):
+                global pair
+                pair[2]=("owo pray",0)
+                continue
+        if(weaponsCrateError()):
+                global pair
+                pair[4]=("owo wc",0)
+                continue
         time.sleep(randTime())
 
 randCommand()
