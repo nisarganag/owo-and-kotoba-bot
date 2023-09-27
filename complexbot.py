@@ -26,13 +26,11 @@ def Check(x1,y1,x2,y2):
         cap = ImageGrab.grab(bbox=(x1, y1, x2, y2))
         cap_arr = np.array(cap)
         res=cv2.resize(cap_arr,None,fx=1,fy=1,interpolation=cv2.INTER_CUBIC)
-        cv2.imshow("", res)
         text = pytesseract.image_to_string(res)
         text = text.strip()
         if len(text) > 0:
             print(text)
-        if cv2.waitKey(1) == 27:
-            break
+        break
     cv2.destroyAllWindows()
     return text
     
@@ -88,16 +86,17 @@ def randCommand():
         
         pyautogui.write(commands[x])
         pyautogui.press('enter')
+        time.sleep(1)
         if(lootBoxError()):
-                global pair
+                
                 pair[10]=("owo lb",0)
                 continue
         if(prayError()):
-                global pair
+                
                 pair[2]=("owo pray",0)
                 continue
         if(weaponsCrateError()):
-                global pair
+                
                 pair[4]=("owo wc",0)
                 continue
         time.sleep(randTime())
