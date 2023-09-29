@@ -23,7 +23,8 @@ pair=[("owo h",1),
     ("owo pika",1),
     ("owo lb",1),
     ("owo w",1)]
-def Check(x1,y1,x2,y2):
+
+def Check(x1,y1,x2,y2): #checking using tesseract inside the box
     while True:
         cap = ImageGrab.grab(bbox=(x1, y1, x2, y2))
         cap_arr = np.array(cap)
@@ -37,32 +38,35 @@ def Check(x1,y1,x2,y2):
     return text
     
 
-def lootBoxError():
+def lootBoxError(): #checking lootbox error
     str=Check(515, 876, 998, 906)
     if "don't have any lootboxes" in str:
         return True
     else:
         return False
 
-def weaponsCrateError():
+def weaponsCrateError(): #checking weapon crate error
     str=Check(515, 876, 998, 906)
     if "don't have any weapon crates" in str:
         return True
     else:
         return False
-def receivedLootbox():
+    
+def receivedLootbox(): #checking if lootbox is received
     str=Check(515, 876, 998, 906)
     if "found a lootbox" in str:
         return True
     else:
         return False
-def receivedWeaponsCrate():
+    
+def receivedWeaponsCrate(): #checking if weapon crate is received
     str=Check(515, 876, 998, 906)
     if "found a weapon crate" in str:
         return True
     else:
         return False
-def reset_pray_flag():
+    
+def reset_pray_flag(): #resetting pray flag after 5 minutes
     while True:
         time.sleep(300)  
         pair[2] = ("owo pray", 1)
@@ -73,16 +77,18 @@ commands=["owo lb","owo h","owo b","owo pray","owo inv","owo h","owo b","owo wc"
 
 test_queue = Deque([-1]*4,maxlen=4) 
     
-def randTime():
+def randTime(): #random time
     y = random.randrange(25)
     return y
+
 open("discord")
 time.sleep(15)
 pyautogui.click(47, 215)
 time.sleep(1)
 pyautogui.click(523, 964)
 time.sleep(2)
-def randCommand():
+
+def randCommand():  #random command
     global reset_thread
     for i in range(1, num+1):
         x = random.randrange(19)
