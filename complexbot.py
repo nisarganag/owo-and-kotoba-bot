@@ -9,6 +9,7 @@ import pytesseract
 from PIL import ImageGrab
 import threading
 
+reset_thread = None
 pytesseract.pytesseract.tesseract_cmd = 'C:/Program Files/Tesseract-OCR/tesseract.exe'
 pair=[("owo h",1),
     ("owo b",1),
@@ -42,12 +43,7 @@ def lootBoxError():
         return True
     else:
         return False
-# def prayError():
-#     str=Check(515, 876, 998, 906)
-#     if "Slow down and try the command again in" in str:
-#         return True
-#     else:
-#         return False
+
 def weaponsCrateError():
     str=Check(515, 876, 998, 906)
     if "don't have any weapon crates" in str:
@@ -68,7 +64,7 @@ def receivedWeaponsCrate():
         return False
 def reset_pray_flag():
     while True:
-        time.sleep(300)  # Sleep for 5 minutes (300 seconds)
+        time.sleep(300)  
         pair[2] = ("owo pray", 1)
         print("Resetting 'pair[2]' to ('owo pray', 1)")
        
@@ -87,6 +83,7 @@ time.sleep(1)
 pyautogui.click(523, 964)
 time.sleep(2)
 def randCommand():
+    global reset_thread
     for i in range(1, num+1):
         x = random.randrange(19)
         for j in range(4):
@@ -104,8 +101,10 @@ def randCommand():
         
         if(commands[x]=="owo pray" and pair[2][1]==1):
             pair[2]=("owo pray",0)
+            if reset_thread and reset_thread.is_alive():
+                reset_thread.join()
             reset_thread = threading.Thread(target=reset_pray_flag)
-            reset_thread.start() 
+            reset_thread.start()  
 
         pyautogui.write(commands[x])
         pyautogui.press('enter')
@@ -123,6 +122,7 @@ def randCommand():
                 pair[4]=("owo wc",1)
                 continue
         time.sleep(randTime())
+        i+=1
 
 randCommand()
 
