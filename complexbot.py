@@ -7,6 +7,7 @@ import cv2
 import numpy as np
 import pytesseract
 from PIL import ImageGrab
+import threading
 
 pytesseract.pytesseract.tesseract_cmd = 'C:/Program Files/Tesseract-OCR/tesseract.exe'
 pair=[("owo h",1),
@@ -41,19 +42,36 @@ def lootBoxError():
         return True
     else:
         return False
-def prayError():
-    str=Check(515, 876, 998, 906)
-    if "Slow down and try the command again in" in str:
-        return True
-    else:
-        return False
+# def prayError():
+#     str=Check(515, 876, 998, 906)
+#     if "Slow down and try the command again in" in str:
+#         return True
+#     else:
+#         return False
 def weaponsCrateError():
     str=Check(515, 876, 998, 906)
     if "don't have any weapon crates" in str:
         return True
     else:
         return False
-
+def receivedLootbox():
+    str=Check(515, 876, 998, 906)
+    if "found a lootbox" in str:
+        return True
+    else:
+        return False
+def receivedWeaponsCrate():
+    str=Check(515, 876, 998, 906)
+    if "found a weapon crate" in str:
+        return True
+    else:
+        return False
+def reset_pray_flag():
+    while True:
+        time.sleep(300)  # Sleep for 5 minutes (300 seconds)
+        pair[2] = ("owo pray", 1)
+        print("Resetting 'pair[2]' to ('owo pray', 1)")
+       
 num=int(input("How many times? "))
 commands=["owo lb","owo h","owo b","owo pray","owo inv","owo h","owo b","owo wc","owo h","owo b","owo z","owo cash","owo q","owo cl","owo b","owo pika","owo army","owo w","owo h"]
 
@@ -84,20 +102,25 @@ def randCommand():
         if(commands[x]=="owo wc" and pair[4][1]==0):
             continue
         
+        if(commands[x]=="owo pray" and pair[2][1]==1):
+            pair[2]=("owo pray",0)
+            reset_thread = threading.Thread(target=reset_pray_flag)
+            reset_thread.start() 
+
         pyautogui.write(commands[x])
         pyautogui.press('enter')
         time.sleep(1)
         if(lootBoxError()):
-                
                 pair[10]=("owo lb",0)
                 continue
-        if(prayError()):
-                
-                pair[2]=("owo pray",0)
-                continue
         if(weaponsCrateError()):
-                
                 pair[4]=("owo wc",0)
+                continue
+        if(receivedLootbox()):  
+                pair[10]=("owo lb",1)
+                continue
+        if(receivedWeaponsCrate()):
+                pair[4]=("owo wc",1)
                 continue
         time.sleep(randTime())
 
