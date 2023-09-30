@@ -37,6 +37,12 @@ def Check(x1,y1,x2,y2): #checking using tesseract inside the box
     cv2.destroyAllWindows()
     return text
     
+def checkBan(): #checking ban
+    str=Check(515, 876, 998, 906)
+    if "owobot.com/captcha" in str:
+        return True
+    else:
+        return False
 
 def lootBoxError(): #checking lootbox error
     str=Check(515, 876, 998, 906)
@@ -127,6 +133,9 @@ def randCommand():  #random command
         if(receivedWeaponsCrate()):
                 pair[4]=("owo wc",1)
                 continue
+        if(checkBan()):
+                print("Banned")
+                exit()
         time.sleep(randTime())
         i+=1
 
