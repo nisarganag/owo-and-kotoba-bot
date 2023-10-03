@@ -28,6 +28,9 @@ DONE!!
 Run the python script and enjoy
 
 
+
+
+
 for Kotoba Bot
 
 Keep the words.txt file in the same directory as the python script file
