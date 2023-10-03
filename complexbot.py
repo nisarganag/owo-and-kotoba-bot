@@ -1,3 +1,4 @@
+import sys
 import time
 import random
 from typing import Deque
@@ -22,7 +23,8 @@ pair=[("owo h",1),
     ("owo cl",1),
     ("owo pika",1),
     ("owo lb",1),
-    ("owo w",1)]
+    ("owo w",1),
+    ("owo army",1)]
 
 def Check(x1,y1,x2,y2): #checking using tesseract inside the box
     while True:
@@ -57,7 +59,14 @@ def weaponsCrateError(): #checking weapon crate error
         return True
     else:
         return False
-    
+
+def armyError(): #checking army error
+    str=Check(515, 876, 998, 906)
+    if "you can only find 15 emblems per" in str:
+        return True
+    else:
+        return False
+
 def receivedLootbox(): #checking if lootbox is received
     str=Check(515, 876, 998, 906)
     if "found a lootbox" in str:
@@ -71,25 +80,28 @@ def receivedWeaponsCrate(): #checking if weapon crate is received
         return True
     else:
         return False
-    
-def reset_pray_flag(): #resetting pray flag after 5 minutes
-    while True:
-        time.sleep(300)  
-        pair[2] = ("owo pray", 1)
-        print("Resetting 'pair[2]' to ('owo pray', 1)")
        
 num=int(input("How many times? "))
 commands=["owo lb","owo h","owo b","owo inv","owo h","owo b","owo wc","owo h","owo b","owo z","owo cash","owo q","owo cl","owo b","owo pika","owo army","owo w","owo h"]
 pray = "owo pray"
 test_queue = Deque([-1]*4,maxlen=4) 
-    
+
+def reset_pray_flag(): #resetting pray flag after 5 minutes
+    i=1
+    while (i!=0.03*num+1 and i<0.03*num+1):
+        time.sleep(300)  
+        pair[2] = ("owo pray", 1)
+        print("Resetting 'pair[2]' to ('owo pray', 1)")
+        i+=1
+
 def randTime(): #random time
     y = random.randrange(25)
     return y
 
 def prayCommand(): #pray command  
         time.sleep(3)
-        while True:
+        i=1
+        while (i!=10*num+1):
             if pair[2][1] == 1:  # Check if the flag is set to 1
                 pyautogui.write(pray)
                 pyautogui.press('enter')
@@ -99,6 +111,7 @@ def prayCommand(): #pray command
                     print("Banned")
                     exit()
             time.sleep(1)
+            i+=1
 
 reset_thread = threading.Thread(target=reset_pray_flag)
 pray_thread = threading.Thread(target=prayCommand)
@@ -127,6 +140,9 @@ def randCommand():  #random command
             
         if(commands[x]=="owo wc" and pair[4][1]==0):
             continue
+        
+        if(commands[x]=="owo army" and pair[15][1]==0):
+            continue
 
         pyautogui.write(commands[x])
         pyautogui.press('enter')
@@ -143,15 +159,15 @@ def randCommand():  #random command
         if(receivedWeaponsCrate()):
                 pair[4]=("owo wc",1)
                 continue
+        if(armyError()):
+                pair[15]=("owo army",0)
+                continue
         if(checkBan()):
                 print("Banned")
                 exit()
         time.sleep(randTime())
         
         i+=1
-    exit()
-
 
 randCommand()
-
-
+sys.exit()
