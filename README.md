@@ -1,6 +1,6 @@
-# owo-and-kotoba-bot
 
-for OwO Bot
+
+<h2> for OwO Bot </h2>
 
 Prerequisites
 
@@ -26,12 +26,9 @@ The Bot Works when discord is opened or closed or minimized.
 DONE!!
 
 Run the python script and enjoy
+<br>
 
-
-
-
-
-for Kotoba Bot
+<h2>for Kotoba Bot</h2>
 
 Keep the words.txt file in the same directory as the python script file
 
