@@ -79,13 +79,29 @@ def reset_pray_flag(): #resetting pray flag after 5 minutes
         print("Resetting 'pair[2]' to ('owo pray', 1)")
        
 num=int(input("How many times? "))
-commands=["owo lb","owo h","owo b","owo pray","owo inv","owo h","owo b","owo wc","owo h","owo b","owo z","owo cash","owo q","owo cl","owo b","owo pika","owo army","owo w","owo h"]
-
+commands=["owo lb","owo h","owo b","owo inv","owo h","owo b","owo wc","owo h","owo b","owo z","owo cash","owo q","owo cl","owo b","owo pika","owo army","owo w","owo h"]
+pray = "owo pray"
 test_queue = Deque([-1]*4,maxlen=4) 
     
 def randTime(): #random time
     y = random.randrange(25)
     return y
+
+def prayCommand(): #pray command  
+        time.sleep(3)
+        while True:
+            if pair[2][1] == 1:  # Check if the flag is set to 1
+                pyautogui.write(pray)
+                pyautogui.press('enter')
+                pair[2] = ("owo pray", 0)
+                time.sleep(1)
+                if checkBan():
+                    print("Banned")
+                    exit()
+            time.sleep(1)
+
+reset_thread = threading.Thread(target=reset_pray_flag)
+pray_thread = threading.Thread(target=prayCommand)
 
 open("discord")
 time.sleep(15)
@@ -94,10 +110,14 @@ time.sleep(1)
 pyautogui.click(523, 964)
 time.sleep(2)
 
+pray_thread.start()
+time.sleep(5)
+reset_thread.start()
+
 def randCommand():  #random command
     global reset_thread
     for i in range(1, num+1):
-        x = random.randrange(19)
+        x = random.randrange(18)
         for j in range(4):
             if x == test_queue[j]:
                 time.sleep(10)
@@ -105,18 +125,8 @@ def randCommand():  #random command
         if(commands[x]=="owo lb" and pair[10][1]==0):
             continue
             
-        if(commands[x]=="owo pray" and pair[2][1]==0):
-            continue
-            
         if(commands[x]=="owo wc" and pair[4][1]==0):
             continue
-        
-        if(commands[x]=="owo pray" and pair[2][1]==1):
-            pair[2]=("owo pray",0)
-            if reset_thread and reset_thread.is_alive():
-                reset_thread.join()
-            reset_thread = threading.Thread(target=reset_pray_flag)
-            reset_thread.start()  
 
         pyautogui.write(commands[x])
         pyautogui.press('enter')
@@ -137,7 +147,11 @@ def randCommand():  #random command
                 print("Banned")
                 exit()
         time.sleep(randTime())
+        
         i+=1
 
+
+
 randCommand()
+
 
