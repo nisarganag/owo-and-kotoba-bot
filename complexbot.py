@@ -149,7 +149,7 @@ def randCommand():  #random command
         time.sleep(randTime())
         
         i+=1
-
+    exit()
 
 
 randCommand()
