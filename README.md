@@ -1,5 +1,7 @@
 # owo-and-kotoba-bot
 
+for OwO Bot
+
 Prerequisites
 
 Step 1 : import pyautogui for mouse cursor movement and keyboard inputs (pip install pyautogui).
@@ -24,3 +26,16 @@ The Bot Works when discord is opened or closed or minimized.
 DONE!!
 
 Run the python script and enjoy
+
+
+for Kotoba Bot
+
+Keep the words.txt file in the same directory as the python script file
+
+Just run the script and insert the anagrams manually and all the possible answers will be shown.
+
+The Script will run for 10 times as the general length of a kotoba quiz.
+
+DONE!!
+
+Enjoy
