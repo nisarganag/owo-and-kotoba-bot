@@ -1,5 +1,3 @@
-
-
 <h2> for OwO Bot </h2>
 
 Prerequisites
