@@ -26,6 +26,11 @@ pair=[("owo h",1),
     ("owo w",1),
     ("owo army",1)]
 
+x1=515
+y1=876
+x2=998
+y2=906
+
 def Check(x1,y1,x2,y2): #checking using tesseract inside the box
     while True:
         cap = ImageGrab.grab(bbox=(x1, y1, x2, y2))
@@ -40,42 +45,42 @@ def Check(x1,y1,x2,y2): #checking using tesseract inside the box
     return text
     
 def checkBan(): #checking ban
-    str=Check(515, 876, 998, 906)
+    str=Check(x1, y1, x2, y2)
     if "owobot.com/captcha" in str:
         return True
     else:
         return False
 
 def lootBoxError(): #checking lootbox error
-    str=Check(515, 876, 998, 906)
+    str=Check(x1, y1, x2, y2)
     if "don't have any lootboxes" in str:
         return True
     else:
         return False
 
 def weaponsCrateError(): #checking weapon crate error
-    str=Check(515, 876, 998, 906)
+    str=Check(x1, y1, x2, y2)
     if "don't have any weapon crates" in str:
         return True
     else:
         return False
 
 def armyError(): #checking army error
-    str=Check(515, 876, 998, 906)
+    str=Check(x1, y1, x2, y2)
     if "you can only find 15 emblems per" in str:
         return True
     else:
         return False
 
 def receivedLootbox(): #checking if lootbox is received
-    str=Check(515, 876, 998, 906)
+    str=Check(x1, y1, x2, y2)
     if "found a lootbox" in str:
         return True
     else:
         return False
     
 def receivedWeaponsCrate(): #checking if weapon crate is received
-    str=Check(515, 876, 998, 906)
+    str=Check(x1, y1, x2, y2)
     if "found a weapon crate" in str:
         return True
     else:
