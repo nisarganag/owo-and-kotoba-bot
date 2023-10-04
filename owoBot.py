@@ -146,7 +146,7 @@ def randCommand():  #random command
         if(commands[x]=="owo wc" and pair[4][1]==0):
             continue
         
-        if(commands[x]=="owo army" and pair[15][1]==0):
+        if(commands[x]=="owo army" and pair[12][1]==0):
             continue
 
         pyautogui.write(commands[x])
@@ -165,7 +165,7 @@ def randCommand():  #random command
                 pair[4]=("owo wc",1)
                 continue
         if(armyError()):
-                pair[15]=("owo army",0)
+                pair[12]=("owo army",0)
                 continue
         if(checkBan()):
                 print("Banned")
